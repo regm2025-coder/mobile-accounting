@@ -2,96 +2,1046 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المحاسبة عبر الهاتف المحمول</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>برنامج المحاسبة</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:Arial,Tahoma,sans-serif;
-  background:#f5f5f5;
-  color:#222;
+margin:0;
+font-family:Arial,Tahoma,sans-serif;
+background:#f4f4f4;
+color:#222;
 }
+
 header{
-  background:#171717;
-  color:#d4af37;
-  padding:18px 15px;
-  text-align:center;
-  font-size:23px;
-  font-weight:bold;
+background:#171717;
+color:white;
+padding:18px 12px;
+text-align:center;
 }
+
+header h1{
+margin:0;
+font-size:22px;
+}
+
+header p{
+margin:7px 0 0;
+color:#d4af37;
+font-size:14px;
+}
+
 nav{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-  padding:8px;
-  background:#222;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+padding:8px;
+background:#222;
+position:sticky;
+top:0;
+z-index:10;
 }
+
 nav button{
-  border:0;
-  padding:12px 4px;
-  border-radius:8px;
-  background:#333;
-  color:white;
-  font-size:13px;
+border:0;
+padding:12px 5px;
+border-radius:7px;
+background:#333;
+color:white;
+font-size:13px;
 }
+
 nav button.active{
-  background:#d4af37;
-  color:#111;
+background:#d4af37;
+color:#111;
+font-weight:bold;
 }
-.container{
-  padding:12px;
-  max-width:800px;
-  margin:auto;
+
+main{
+padding:12px;
+max-width:900px;
+margin:auto;
 }
-.page{display:none}
-.page.active{display:block}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
 .card{
-  background:white;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:12px;
-  box-shadow:0 2px 8px #0001;
+background:white;
+border-radius:12px;
+padding:15px;
+margin-bottom:12px;
+box-shadow:0 2px 7px #0001;
 }
-h2{margin-top:0;color:#222}
-label{
-  display:block;
-  margin:10px 0 5px;
-  font-weight:bold;
+
+.card h2{
+margin-top:0;
+font-size:19px;
 }
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
-  background:white;
+
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
-button.main{
-  width:100%;
-  margin-top:12px;
-  padding:13px;
-  border:0;
-  border-radius:8px;
-  background:#198754;
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-}
-button.gold{
-  background:#d4af37;
-  color:#111;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
+
 .stat{
-  text-align:center;
-  padding:15px 8px;
-  border-radius:10px;
-  background:#eee;
+padding:15px;
+border-radius:10px;
+background:#eee;
+text-align:center;
 }
-.stat b
+
+.stat b{
+display:block;
+font-size:22px;
+margin-top:7px;
+}
+
+label{
+display:block;
+font-weight:bold;
+margin-top:10px;
+margin-bottom:5px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+background:white;
+}
+
+button.main{
+width:100%;
+margin-top:12px;
+padding:13px;
+border:0;
+border-radius:8px;
+background:#198754;
+color:white;
+font-size:16px;
+font-weight:bold;
+}
+
+button.gold{
+background:#d4af37;
+color:#111;
+}
+
+button.red{
+background:#dc3545;
+color:white;
+}
+
+button.gray{
+background:#666;
+color:white;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+font-size:14px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+text-align:center;
+}
+
+th{
+background:#222;
+color:white;
+}
+
+.item{
+border:1px solid #ddd;
+border-radius:10px;
+padding:12px;
+margin-top:10px;
+}
+
+.item-title{
+font-weight:bold;
+font-size:17px;
+}
+
+.actions{
+display:flex;
+gap:5px;
+margin-top:8px;
+}
+
+.actions button{
+flex:1;
+padding:9px;
+border:0;
+border-radius:7px;
+}
+
+.empty{
+text-align:center;
+padding:20px;
+color:#777;
+}
+
+@media(max-width:500px){
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+table{
+font-size:12px;
+}
+
+th,td{
+padding:6px 3px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>المحاسبة عبر الهاتف المحمول</h1>
+<p>إدارة المبيعات والمشتريات والمخزون</p>
+</header>
+
+<nav>
+<button class="active" onclick="showPage('home',this)">الرئيسية</button>
+<button onclick="showPage('products',this)">الأصناف</button>
+<button onclick="showPage('sales',this)">المبيعات</button>
+<button onclick="showPage('purchases',this)">المشتريات</button>
+</nav>
+
+<main>
+
+<!-- الرئيسية -->
+<section id="home" class="page active">
+
+<div class="card">
+<h2>📊 الملخص</h2>
+
+<div class="stats">
+
+<div class="stat">
+المبيعات
+<b id="totalSales">0</b>
+</div>
+
+<div class="stat">
+المشتريات
+<b id="totalPurchases">0</b>
+</div>
+
+<div class="stat">
+المخزون
+<b id="totalStock">0</b>
+</div>
+
+<div class="stat">
+الأرباح
+<b id="totalProfit">0</b>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>📦 حالة المخزون</h2>
+<div id="stockList"></div>
+</div>
+
+</section>
+
+
+<!-- الأصناف -->
+<section id="products" class="page">
+
+<div class="card">
+
+<h2>➕ إضافة صنف</h2>
+
+<label>اسم الصنف</label>
+<input id="productName" placeholder="مثال: دورة الشمس">
+
+<label>سعر التكلفة</label>
+<input id="productCost" type="number" placeholder="60">
+
+<label>سعر البيع</label>
+<input id="productSale" type="number" placeholder="80">
+
+<label>سعر العرض</label>
+<input id="productOffer" type="number" placeholder="75">
+
+<button class="main" onclick="addProduct()">إضافة الصنف</button>
+
+</div>
+
+<div class="card">
+<h2>📋 الأصناف المسجلة</h2>
+<div id="productsList"></div>
+</div>
+
+</section>
+
+
+<!-- المبيعات -->
+<section id="sales" class="page">
+
+<div class="card">
+
+<h2>🛒 تسجيل عملية بيع</h2>
+
+<label>الصنف</label>
+<select id="saleProduct"></select>
+
+<label>الكمية</label>
+<input id="saleQty" type="number" min="1" value="1">
+
+<label>سعر البيع</label>
+<input id="salePrice" type="number">
+
+<button class="main" onclick="addSale()">حفظ البيع</button>
+
+</div>
+
+<div class="card">
+<h2>📋 سجل المبيعات</h2>
+<div id="salesList"></div>
+</div>
+
+</section>
+
+
+<!-- المشتريات -->
+<section id="purchases" class="page">
+
+<div class="card">
+
+<h2>📥 تسجيل عملية شراء</h2>
+
+<label>الصنف</label>
+<select id="purchaseProduct"></select>
+
+<label>الكمية</label>
+<input id="purchaseQty" type="number" min="1" value="1">
+
+<label>سعر التكلفة للوحدة</label>
+<input id="purchasePrice" type="number">
+
+<button class="main" onclick="addPurchase()">حفظ الشراء</button>
+
+</div>
+
+<div class="card">
+<h2>📋 سجل المشتريات</h2>
+<div id="purchasesList"></div>
+</div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const defaultProducts = [
+{
+id:1,
+name:"دورة الشمس",
+cost:60,
+sale:80,
+offer:75,
+stock:0
+},
+{
+id:2,
+name:"حنظل صفرة",
+cost:60,
+sale:80,
+offer:75,
+stock:0
+},
+{
+id:3,
+name:"مكسرات",
+cost:75,
+sale:85,
+offer:80,
+stock:0
+},
+{
+id:4,
+name:"كيبان",
+cost:350,
+sale:400,
+offer:380,
+stock:0
+}
+];
+
+let products =
+JSON.parse(localStorage.getItem("products")) || defaultProducts;
+
+let sales =
+JSON.parse(localStorage.getItem("sales")) || [];
+
+let purchases =
+JSON.parse(localStorage.getItem("purchases")) || [];
+
+
+function saveData(){
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+localStorage.setItem(
+"sales",
+JSON.stringify(sales)
+);
+
+localStorage.setItem(
+"purchases",
+JSON.stringify(purchases)
+);
+
+}
+
+
+function showPage(id,btn){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+document.querySelectorAll("nav button")
+.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+refresh();
+
+}
+
+
+function addProduct(){
+
+let name =
+document.getElementById("productName").value.trim();
+
+let cost =
+Number(document.getElementById("productCost").value);
+
+let sale =
+Number(document.getElementById("productSale").value);
+
+let offer =
+Number(document.getElementById("productOffer").value);
+
+if(!name || !cost || !sale){
+
+alert("أدخل اسم الصنف والتكلفة وسعر البيع");
+
+return;
+}
+
+products.push({
+id:Date.now(),
+name:name,
+cost:cost,
+sale:sale,
+offer:offer || sale,
+stock:0
+});
+
+saveData();
+
+document.getElementById("productName").value="";
+document.getElementById("productCost").value="";
+document.getElementById("productSale").value="";
+document.getElementById("productOffer").value="";
+
+refresh();
+
+alert("تمت إضافة الصنف بنجاح");
+
+}
+
+
+function addSale(){
+
+let productId =
+Number(document.getElementById("saleProduct").value);
+
+let qty =
+Number(document.getElementById("saleQty").value);
+
+let price =
+Number(document.getElementById("salePrice").value);
+
+let product =
+products.find(p=>p.id===productId);
+
+if(!product){
+
+alert("اختر الصنف");
+
+return;
+}
+
+if(qty<=0){
+
+alert("أدخل كمية صحيحة");
+
+return;
+}
+
+if(product.stock < qty){
+
+alert(
+"المخزون غير كافٍ. المتوفر: "
++product.stock
+);
+
+return;
+}
+
+if(price<=0){
+
+price=product.sale;
+
+}
+
+product.stock -= qty;
+
+sales.push({
+id:Date.now(),
+productId:product.id,
+productName:product.name,
+qty:qty,
+price:price,
+total:qty*price,
+date:new Date().toLocaleString("ar-YE")
+});
+
+saveData();
+
+document.getElementById("saleQty").value=1;
+
+refresh();
+
+alert("تم حفظ عملية البيع");
+
+}
+
+
+function addPurchase(){
+
+let productId =
+Number(document.getElementById("purchaseProduct").value);
+
+let qty =
+Number(document.getElementById("purchaseQty").value);
+
+let price =
+Number(document.getElementById("purchasePrice").value);
+
+let product =
+products.find(p=>p.id===productId);
+
+if(!product){
+
+alert("اختر الصنف");
+
+return;
+}
+
+if(qty<=0){
+
+alert("أدخل كمية صحيحة");
+
+return;
+}
+
+if(price<=0){
+
+price=product.cost;
+
+}
+
+product.stock += qty;
+
+purchases.push({
+id:Date.now(),
+productId:product.id,
+productName:product.name,
+qty:qty,
+price:price,
+total:qty*price,
+date:new Date().toLocaleString("ar-YE")
+});
+
+saveData();
+
+document.getElementById("purchaseQty").value=1;
+
+refresh();
+
+alert("تم حفظ عملية الشراء");
+
+}
+
+
+function deleteSale(id){
+
+let sale =
+sales.find(s=>s.id===id);
+
+if(!sale)return;
+
+let product =
+products.find(p=>p.id===sale.productId);
+
+if(product){
+
+product.stock += sale.qty;
+
+}
+
+sales =
+sales.filter(s=>s.id!==id);
+
+saveData();
+
+refresh();
+
+}
+
+
+function deletePurchase(id){
+
+let purchase =
+purchases.find(p=>p.id===id);
+
+if(!purchase)return;
+
+let product =
+products.find(p=>p.id===purchase.productId);
+
+if(product){
+
+product.stock -= purchase.qty;
+
+if(product.stock<0)
+product.stock=0;
+
+}
+
+purchases =
+purchases.filter(p=>p.id!==id);
+
+saveData();
+
+refresh();
+
+}
+
+
+function deleteProduct(id){
+
+if(!confirm("هل تريد حذف هذا الصنف؟"))
+return;
+
+products =
+products.filter(p=>p.id!==id);
+
+saveData();
+
+refresh();
+
+}
+
+
+function renderProducts(){
+
+let box =
+document.getElementById("productsList");
+
+if(products.length===0){
+
+box.innerHTML=
+'<div class="empty">لا توجد أصناف</div>';
+
+return;
+}
+
+box.innerHTML =
+products.map(p=>`
+
+<div class="item">
+
+<div class="item-title">
+${p.name}
+</div>
+
+<p>
+التكلفة: ${p.cost}
+<br>
+سعر البيع: ${p.sale}
+<br>
+سعر العرض: ${p.offer}
+<br>
+المخزون: <b>${p.stock}</b>
+</p>
+
+<div class="actions">
+
+<button
+class="gold"
+onclick="editProduct(${p.id})">
+تعديل
+</button>
+
+<button
+class="red"
+onclick="deleteProduct(${p.id})">
+حذف
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+function editProduct(id){
+
+let p =
+products.find(x=>x.id===id);
+
+if(!p)return;
+
+let name =
+prompt("اسم الصنف",p.name);
+
+if(name===null)return;
+
+let cost =
+Number(prompt("سعر التكلفة",p.cost));
+
+let sale =
+Number(prompt("سعر البيع",p.sale));
+
+let offer =
+Number(prompt("سعر العرض",p.offer));
+
+if(name.trim())p.name=name.trim();
+
+if(cost>0)p.cost=cost;
+
+if(sale>0)p.sale=sale;
+
+if(offer>0)p.offer=offer;
+
+saveData();
+
+refresh();
+
+}
+
+
+function fillSelects(){
+
+let saleSelect =
+document.getElementById("saleProduct");
+
+let purchaseSelect =
+document.getElementById("purchaseProduct");
+
+let html =
+products.map(p=>
+`<option value="${p.id}">
+${p.name} - المخزون: ${p.stock}
+</option>`
+).join("");
+
+saleSelect.innerHTML=html;
+
+purchaseSelect.innerHTML=html;
+
+setSalePrice();
+
+setPurchasePrice();
+
+}
+
+
+function setSalePrice(){
+
+let id =
+Number(document.getElementById("saleProduct").value);
+
+let p =
+products.find(x=>x.id===id);
+
+if(p){
+
+document.getElementById("salePrice").value=p.sale;
+
+}
+
+}
+
+
+function setPurchasePrice(){
+
+let id =
+Number(document.getElementById("purchaseProduct").value);
+
+let p =
+products.find(x=>x.id===id);
+
+if(p){
+
+document.getElementById("purchasePrice").value=p.cost;
+
+}
+
+}
+
+
+function renderSales(){
+
+let box =
+document.getElementById("salesList");
+
+if(sales.length===0){
+
+box.innerHTML=
+'<div class="empty">لا توجد مبيعات</div>';
+
+return;
+}
+
+box.innerHTML=`
+
+<table>
+
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+<th>حذف</th>
+</tr>
+
+${sales.slice().reverse().map(s=>`
+
+<tr>
+
+<td>${s.productName}</td>
+
+<td>${s.qty}</td>
+
+<td>${s.price}</td>
+
+<td>${s.total}</td>
+
+<td>
+<button
+class="red"
+onclick="deleteSale(${s.id})">
+حذف
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+
+function renderPurchases(){
+
+let box =
+document.getElementById("purchasesList");
+
+if(purchases.length===0){
+
+box.innerHTML=
+'<div class="empty">لا توجد مشتريات</div>';
+
+return;
+}
+
+box.innerHTML=`
+
+<table>
+
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+<th>حذف</th>
+</tr>
+
+${purchases.slice().reverse().map(p=>`
+
+<tr>
+
+<td>${p.productName}</td>
+
+<td>${p.qty}</td>
+
+<td>${p.price}</td>
+
+<td>${p.total}</td>
+
+<td>
+<button
+class="red"
+onclick="deletePurchase(${p.id})">
+حذف
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+
+function renderStock(){
+
+let box =
+document.getElementById("stockList");
+
+if(products.length===0){
+
+box.innerHTML=
+'<div class="empty">لا توجد أصناف</div>';
+
+return;
+}
+
+box.innerHTML =
+products.map(p=>`
+
+<div class="item">
+
+<b>${p.name}</b>
+
+<br>
+
+المخزون الحالي:
+<strong>${p.stock}</strong>
+
+</div>
+
+`).join("");
+
+}
+
+
+function updateSummary(){
+
+let totalSales =
+sales.reduce(
+(sum,s)=>sum+s.total,0
+);
+
+let totalPurchases =
+purchases.reduce(
+(sum,p)=>sum+p.total,0
+);
+
+let totalStock =
+products.reduce(
+(sum,p)=>sum+p.stock,0
+);
+
+let profit =
+sales.reduce(
+(sum,s)=>{
+
+let p =
+products.find(x=>x.id===s.productId);
+
+let cost =
+p ? p.cost : 0;
+
+return sum+(s.price-cost)*s.qty;
+
+},0
+);
+
+document.getElementById("totalSales")
+.textContent=totalSales;
+
+document.getElementById("totalPurchases")
+.textContent=totalPurchases;
+
+document.getElementById("totalStock")
+.textContent=totalStock;
+
+document.getElementById("totalProfit")
+.textContent=profit;
+
+}
+
+
+function refresh(){
+
+fillSelects();
+renderProducts();
+renderSales();
+renderPurchases();
+renderStock();
+updateSummary();
+
+}
+
+
+document.getElementById("saleProduct")
+.addEventListener("change",setSalePrice);
+
+document.getElementById("purchaseProduct")
+.addEventListener("change",setPurchasePrice);
+
+
+refresh();
+
+</script>
+
+</body>
+</html>
