@@ -1044,4 +1044,227 @@ refresh();
 </script>
 
 </body>
+  <!-- نافذة السند المطبوع -->
+<div id="receiptPrint" style="display:none">
+
+<style>
+.receipt{
+  width:80mm;
+  margin:auto;
+  background:white;
+  color:#000;
+  padding:12px;
+  font-family:Arial,Tahoma,sans-serif;
+  direction:rtl;
+}
+
+.receipt h2{
+  text-align:center;
+  margin:0 0 5px;
+  font-size:22px;
+}
+
+.receipt .title{
+  text-align:center;
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.receipt hr{
+  border:0;
+  border-top:1px dashed #000;
+  margin:8px 0;
+}
+
+.receipt table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+}
+
+.receipt th,
+.receipt td{
+  border-bottom:1px solid #ddd;
+  padding:6px 3px;
+  text-align:center;
+}
+
+.receipt .total{
+  font-size:18px;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.receipt .footer{
+  text-align:center;
+  margin-top:20px;
+  font-size:13px;
+}
+
+@media print{
+  body *{
+    visibility:hidden !important;
+  }
+
+  #receiptPrint,
+  #receiptPrint *{
+    visibility:visible !important;
+  }
+
+  #receiptPrint{
+    display:block !important;
+    position:absolute;
+    top:0;
+    right:0;
+    width:80mm;
+  }
+
+  @page{
+    size:80mm auto;
+    margin:0;
+  }
+}
+</style>
+
+<div class="receipt">
+
+  <h2>المحاسبة عبر الهاتف المحمول</h2>
+
+  <div class="title" id="receiptTitle">
+    سند عملية
+  </div>
+
+  <hr>
+
+  <div>
+    رقم السند:
+    <span id="receiptNumber"></span>
+  </div>
+
+  <div>
+    التاريخ:
+    <span id="receiptDate"></span>
+  </div>
+
+  <hr>
+
+  <table>
+    <thead>
+      <tr>
+        <th>الصنف</th>
+        <th>الكمية</th>
+        <th>السعر</th>
+        <th>الإجمالي</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td id="receiptProduct"></td>
+        <td id="receiptQty"></td>
+        <td id="receiptPrice"></td>
+        <td id="receiptTotal"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="total">
+    الإجمالي:
+    <span id="receiptGrandTotal"></span>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    شكرًا لتعاملكم معنا
+    <br>
+    حفظ الله تجارتكم وبارك لكم
+  </div>
+
+</div>
+
+</div>
+
+<script>
+
+function printSaleReceipt(productName, qty, price){
+
+  let total = Number(qty) * Number(price);
+
+  document.getElementById("receiptTitle").innerText =
+    "سند بيع";
+
+  document.getElementById("receiptNumber").innerText =
+    "بيع-" + Date.now();
+
+  document.getElementById("receiptDate").innerText =
+    new Date().toLocaleString("ar-YE");
+
+  document.getElementById("receiptProduct").innerText =
+    productName;
+
+  document.getElementById("receiptQty").innerText =
+    qty;
+
+  document.getElementById("receiptPrice").innerText =
+    Number(price).toLocaleString();
+
+  document.getElementById("receiptTotal").innerText =
+    total.toLocaleString();
+
+  document.getElementById("receiptGrandTotal").innerText =
+    total.toLocaleString();
+
+  document.getElementById("receiptPrint").style.display =
+    "block";
+
+  setTimeout(function(){
+    window.print();
+
+    document.getElementById("receiptPrint").style.display =
+      "none";
+  },300);
+}
+
+
+function printPurchaseReceipt(productName, qty, price){
+
+  let total = Number(qty) * Number(price);
+
+  document.getElementById("receiptTitle").innerText =
+    "سند شراء";
+
+  document.getElementById("receiptNumber").innerText =
+    "شراء-" + Date.now();
+
+  document.getElementById("receiptDate").innerText =
+    new Date().toLocaleString("ar-YE");
+
+  document.getElementById("receiptProduct").innerText =
+    productName;
+
+  document.getElementById("receiptQty").innerText =
+    qty;
+
+  document.getElementById("receiptPrice").innerText =
+    Number(price).toLocaleString();
+
+  document.getElementById("receiptTotal").innerText =
+    total.toLocaleString();
+
+  document.getElementById("receiptGrandTotal").innerText =
+    total.toLocaleString();
+
+  document.getElementById("receiptPrint").style.display =
+    "block";
+
+  setTimeout(function(){
+    window.print();
+
+    document.getElementById("receiptPrint").style.display =
+    "none";
+  },300);
+}
+
+</script>
 </html>
